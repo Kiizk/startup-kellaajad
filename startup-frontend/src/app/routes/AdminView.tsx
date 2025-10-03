@@ -1,5 +1,6 @@
 import ShortcutBar from "../../features/admin/ShortcutBar";
 import MentorAndTeamsTables from "../../features/admin/MentorAndTeamsTables";
+import AddMentorAndTeamsButton from "../../features/admin/AddMentorAndTeamsButton";
 
 const AdminView = () => {
     return (
@@ -9,6 +10,7 @@ const AdminView = () => {
             </div>
             <div className="w-px bg-black self-stretch" />
             <div className="flex-grow">
+                <AddMentorAndTeamsButton />
                 <MentorAndTeamsTables />
             </div>
         </div>
