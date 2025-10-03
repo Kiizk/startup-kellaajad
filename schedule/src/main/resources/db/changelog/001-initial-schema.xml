@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+            https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.19.xsd">
+
+    <changeSet id="1" author="kaspar kiisk">
+        <createTable tableName="admin">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="kaspar kiisk">
+        <createTable tableName="juhendaja">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="admin_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="juhendaja"
+                baseColumnNames="admin_id"
+                referencedTableName="admin"
+                referencedColumnNames="id"
+                constraintName="fk_juhendaja_admin"/>
+    </changeSet>
+
+    <changeSet id="3" author="kaspar kiisk">
+        <createTable tableName="team">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="juhendaja_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="team"
+                baseColumnNames="juhendaja_id"
+                referencedTableName="juhendaja"
+                referencedColumnNames="id"
+                constraintName="fk_team_juhendaja"/>
+    </changeSet>
+
+    <changeSet id="4" author="kaspar kiisk">
+        <createTable tableName="schedule">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="juhendaja_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="schedule"
+                baseColumnNames="juhendaja_id"
+                referencedTableName="juhendaja"
+                referencedColumnNames="id"
+                constraintName="fk_schedule_juhendaja"/>
+    </changeSet>
+
+    <changeSet id="5" author="kaspar kiisk">
+        <createTable tableName="timeslot">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="schedule_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="start_time" type="TIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end_time" type="TIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="team_id" type="INT">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="timeslot"
+                baseColumnNames="schedule_id"
+                referencedTableName="schedule"
+                referencedColumnNames="id"
+                constraintName="fk_timeslot_schedule"/>
+
+        <addForeignKeyConstraint
+                baseTableName="timeslot"
+                baseColumnNames="team_id"
+                referencedTableName="team"
+                referencedColumnNames="id"
+                constraintName="fk_timeslot_team"/>
+    </changeSet>
+
+</databaseChangeLog>
