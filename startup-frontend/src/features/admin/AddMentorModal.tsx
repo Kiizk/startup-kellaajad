@@ -18,6 +18,8 @@ const EyeIcon = ({ open, className = "w-5 h-5" }) => (
     )
 );
 
+
+
 const AddMentorModal = ({ onClose }) => {
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
@@ -29,6 +31,7 @@ const AddMentorModal = ({ onClose }) => {
         newTeams[index] = value;
         setTeams(newTeams);
     };
+
 
     const addTeamField = () => setTeams([...teams, ""]);
 
@@ -150,6 +153,7 @@ const AddMentorModal = ({ onClose }) => {
                         >
                             Salvesta
                         </button>
+
                     </div>
                 </form>
             </div>
