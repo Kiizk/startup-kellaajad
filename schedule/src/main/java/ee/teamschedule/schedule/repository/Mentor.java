@@ -12,6 +12,7 @@ import java.util.List;
 public class Mentor {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     private String password;

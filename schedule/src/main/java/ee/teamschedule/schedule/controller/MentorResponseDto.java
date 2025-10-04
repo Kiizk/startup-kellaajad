@@ -5,9 +5,9 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class MentorDto {
+public class MentorResponseDto {
+    private Integer id;
     private String name;
-    private String password;
-    private Long adminId;
+    private String adminName;
     private List<String> teamNames;
 }
